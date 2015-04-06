@@ -1,38 +1,50 @@
 <?php
 namespace Mindweb\Persist;
 
-use Mindweb\Recognizer\Event\AttributionEvent;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Mindweb\Persist\Event\PersistEvent;
+use Mindweb\Subscriber\Subscriber;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-abstract class Persist implements EventSubscriberInterface
+abstract class Persist implements Subscriber
 {
     const PERSIST_EVENT = 'tracker.persist';
 
-    const DEFAULT_PRIORITY = 10;
+    /**
+     * @return string
+     */
+    public final function getEventName()
+    {
+        return self::PERSIST_EVENT;
+    }
 
     /**
-     * @param AttributionEvent $attributionEvent
+     * @return array
      */
-    abstract public function persist(AttributionEvent $attributionEvent);
+    public function register()
+    {
+        return array(
+            array('persist', $this->getPriority())
+        );
+    }
+
+    /**
+     * @return null|ConfigurationInterface
+     */
+    public function getConfiguration()
+    {
+        return null;
+    }
+
+    /**
+     * @param PersistEvent $persistEvent
+     */
+    abstract public function persist(PersistEvent $persistEvent);
 
     /**
      * @return int
      */
-    public static function getPriority()
+    protected function getPriority()
     {
-        return self::DEFAULT_PRIORITY;
-    }
-
-    /**
-     * @inherited
-     */
-    public static function getSubscribedEvents()
-    {
-        return array(
-            self::PERSIST_EVENT => array(
-                'persist',
-                self::getPriority()
-            )
-        );
+        return 10;
     }
 } 
