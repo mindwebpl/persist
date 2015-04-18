@@ -36,6 +36,14 @@ abstract class Persist implements Subscriber
     }
 
     /**
+     * @param array $configuration
+     */
+    public function initialize(array $configuration = array())
+    {
+
+    }
+
+    /**
      * @param PersistEvent $persistEvent
      */
     abstract public function persist(PersistEvent $persistEvent);
