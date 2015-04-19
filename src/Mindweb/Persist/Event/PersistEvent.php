@@ -12,6 +12,11 @@ class PersistEvent extends Event
     private $attributionEvent;
 
     /**
+     * @var array
+     */
+    private $persistResults = array();
+
+    /**
      * @param AttributionEvent $attributionEvent
      */
     public function __construct(AttributionEvent $attributionEvent)
@@ -20,10 +25,19 @@ class PersistEvent extends Event
     }
 
     /**
-     * @return AttributionEvent
+     * @return array
      */
-    public function getAttributionEvent()
+    public function getAttribution()
     {
-        return $this->attributionEvent;
+        return $this->attributionEvent->getAttribution();
+    }
+
+    /**
+     * @param string $persist
+     * @param mixed $result
+     */
+    public function addPersistResult($persist, $result)
+    {
+        $this->persistResults[$persist] = $result;
     }
 } 
