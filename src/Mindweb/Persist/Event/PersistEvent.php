@@ -18,4 +18,12 @@ class PersistEvent extends Event
     {
         $this->attributionEvent = $attributionEvent;
     }
+
+    /**
+     * @return AttributionEvent
+     */
+    public function getAttributionEvent()
+    {
+        return $this->attributionEvent;
+    }
 } 
