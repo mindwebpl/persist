@@ -40,4 +40,12 @@ class PersistEvent extends Event
     {
         $this->persistResults[$persist] = $result;
     }
+
+    /**
+     * @return array
+     */
+    public function getResults()
+    {
+        return $this->persistResults;
+    }
 } 
